@@ -30,3 +30,7 @@ $ ts-node src/index.ts {twitterHandle}
 
 <img width="425" alt="Screen Shot 2022-08-17 at 19 46 41" src="https://user-images.githubusercontent.com/12957692/185256807-7f75ed1b-eb00-4543-bda3-793d7645c207.png">
 
+## Limits
+
+- Twitter API limits *following* requests to 15/min and username->id to 300/min
+- Requests to resolve `.eth` names + lens profiles are all made in parallel. They may be subject to limits if too many users are queried at the same time
