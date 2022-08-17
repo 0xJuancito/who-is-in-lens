@@ -1,7 +1,7 @@
 # who-is-in-lens
 
 ​
-Find your friends from Twitter in [Lens](https://lens.xyz/) 🍃
+Find your friends from Twitter in [Lens Protocol](https://lens.xyz/) 🍃
 
 ## Description
 
