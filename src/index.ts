@@ -62,6 +62,9 @@ async function run(username: string) {
   console.log("")
   console.log("Lens friends:")
   profiles.forEach((profile) => console.log(`@${profile.twitter} => ${profile.lens}`))
+
+  console.log("")
+  console.log(`Found ${profiles.length} frens in Lens!! :)`)
 }
 
 async function getLensHandleFromEns(ensName: string, ethProvider: any, polygonProvider: any): Promise<string | null> {
