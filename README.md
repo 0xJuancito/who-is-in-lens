@@ -1,7 +1,5 @@
 # who-is-in-lens
 
-![who-is-in-lens](https://user-images.githubusercontent.com/12957692/185258876-82a52e44-0400-4b21-9722-ef5a930e1c3f.png)
-
 Find your friends from Twitter in [Lens Protocol](https://lens.xyz/) 🌿
 
 ## Description
