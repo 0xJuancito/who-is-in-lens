@@ -124,12 +124,12 @@ async function getTwitterFollowing(username: string) {
     const readOnlyClient = twitterClient.readOnly
 
     // Get Twitter id from the username
-    // API quota: 300/m
+    // API quota: 300 every 15 minutes
     const user = await twitterClient.v2.userByUsername(username)
     const userId = user.data.id
 
     // Get following people
-    // API quota: 15/m
+    // API quota: 15 every 15 minutes
     const following = await readOnlyClient.v2.following(userId, {
       max_results: 1000,
       "user.fields": ["description"],
