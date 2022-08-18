@@ -31,5 +31,5 @@ $ ts-node src/index.ts {twitterHandle}
 
 ## Limits
 
-- Twitter API limits *following* requests to 15/min and username->id to 300/min
+- Twitter API limits *following* requests to 15 per 15 min and username->id to 300 per 15min
 - Requests to resolve `.eth` names + lens profiles are all made in parallel. They may be subject to limits if too many users are queried at the same time
