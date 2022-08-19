@@ -17,6 +17,8 @@ type Handle = {
 dotenv.config()
 
 export async function findFriends(username: string): Promise<Handle[]> {
+  const initTime = Date.now()
+
   const providersConfig = getProvidersConfig()
 
   // Initialize providers
@@ -32,7 +34,6 @@ export async function findFriends(username: string): Promise<Handle[]> {
   const profiles: Handle[] = []
 
   // May become subject to some limit if too many users
-
   const lensPromise = async (follower: UserV2) => {
     try {
       let lensNameFromTwitter = parseLensName(follower.name) || parseLensName(follower.description)
@@ -56,7 +57,9 @@ export async function findFriends(username: string): Promise<Handle[]> {
   }
 
   // Force promises to be resolved in a specific timeout
-  const TIMEOUT = 15000
+  // Try to resolve the promise in less than 10 seconds approximmately
+  const timeTaken = Date.now() - initTime
+  const TIMEOUT = 9800 - timeTaken
   const timeoutPromise = new Promise<void>((resolve) => setTimeout(() => resolve(), TIMEOUT))
 
   const promises = following.data.map((follower) => Promise.race([lensPromise(follower), timeoutPromise]))
