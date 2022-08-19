@@ -2,6 +2,8 @@
 
 Find your friends from Twitter in [Lens Protocol](https://lens.xyz/) 🌿
 
+For the website repository you can visit [who-is-in-lens-web](https://github.com/juanscolari/who-is-in-lens-web)
+
 ## Description
 
 `who-is-in-lens` checks the list of people you are _following_ on Twitter, and scans their name and description to find any `.lens` handle. It also looks for `.eth` ENS names and checks if the person has a Lens profile associated to it.
