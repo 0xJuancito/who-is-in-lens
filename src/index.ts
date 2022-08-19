@@ -1,4 +1,4 @@
-import { TwitterApi } from "twitter-api-v2"
+import { TwitterApi, UserV2 } from "twitter-api-v2"
 import dotenv from "dotenv"
 import { BigNumber, ethers } from "ethers"
 
@@ -32,23 +32,34 @@ export async function findFriends(username: string): Promise<Handle[]> {
   const profiles: Handle[] = []
 
   // May become subject to some limit if too many users
-  const promises = following.data.map(async (follower) => {
-    let lensNameFromTwitter = parseLensName(follower.name) || parseLensName(follower.description)
-    const ensName = parseEnsName(follower.name) || parseEnsName(follower.description)
 
-    // Check the address with the ENS for a Lens profile
-    let lensNameFromEns
-    if (!lensNameFromTwitter && ensName) {
-      lensNameFromEns = await getLensHandleFromEns(ensName, ethProvider, polygonProvider)
-    }
+  const lensPromise = async (follower: UserV2) => {
+    try {
+      let lensNameFromTwitter = parseLensName(follower.name) || parseLensName(follower.description)
+      const ensName = parseEnsName(follower.name) || parseEnsName(follower.description)
 
-    // Push lens profile to the list
-    const lensName = lensNameFromTwitter || lensNameFromEns
-    if (lensName) {
-      profiles.push({ twitter: follower.username, lens: lensName })
-      console.log(`Found @${follower.username} => ${lensName}`)
+      // Check the address with the ENS for a Lens profile
+      let lensNameFromEns
+      if (!lensNameFromTwitter && ensName) {
+        lensNameFromEns = await getLensHandleFromEns(ensName, ethProvider, polygonProvider)
+      }
+
+      // Push lens profile to the list
+      const lensName = lensNameFromTwitter || lensNameFromEns
+      if (lensName) {
+        profiles.push({ twitter: follower.username, lens: lensName })
+        console.log(`Found @${follower.username} => ${lensName}`)
+      }
+    } catch (err) {
+      console.log(err)
     }
-  })
+  }
+
+  // Force promises to be resolved in a specific timeout
+  const TIMEOUT = 20000
+  const timeoutPromise = new Promise<void>((resolve) => setTimeout(() => resolve(), TIMEOUT))
+
+  const promises = following.data.map((follower) => Promise.race([lensPromise(follower), timeoutPromise]))
   await Promise.all(promises)
 
   return profiles
