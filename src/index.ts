@@ -16,14 +16,7 @@ type Handle = {
 
 dotenv.config()
 
-const username = process.argv[2]
-if (!username) {
-  throw new Error("A username must be provided as an argument")
-}
-
-run(username)
-
-async function run(username: string) {
+export async function findFriends(username: string): Promise<Handle[]> {
   const providersConfig = getProvidersConfig()
 
   // Initialize providers
@@ -58,13 +51,7 @@ async function run(username: string) {
   })
   await Promise.all(promises)
 
-  // Print the .lens profiles
-  console.log("")
-  console.log("Lens friends:")
-  profiles.forEach((profile) => console.log(`@${profile.twitter} => ${profile.lens}`))
-
-  console.log("")
-  console.log(`Found ${profiles.length} frens in Lens!! :)`)
+  return profiles
 }
 
 async function getLensHandleFromEns(ensName: string, ethProvider: any, polygonProvider: any): Promise<string | null> {
