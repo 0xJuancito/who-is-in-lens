@@ -59,7 +59,7 @@ export async function findFriends(username: string): Promise<Handle[]> {
   // Force promises to be resolved in a specific timeout
   // Try to resolve the promise in less than 10 seconds approximmately
   const timeTaken = Date.now() - initTime
-  const TIMEOUT = 9800 - timeTaken
+  const TIMEOUT = 9000 - timeTaken
   const timeoutPromise = new Promise<void>((resolve) => setTimeout(() => resolve(), TIMEOUT))
 
   const promises = following.data.map((follower) => Promise.race([lensPromise(follower), timeoutPromise]))
