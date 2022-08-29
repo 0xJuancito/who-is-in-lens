@@ -143,11 +143,11 @@ async function getTwitterFollowing(username: string) {
 }
 
 function parseLensName(text = ""): string | null {
-  const results = text.match(/[a-zA-Z0-9_]*\.lens/)
+  const results = text.match(/[a-zA-Z0-9_]+\.lens/)
   return results && results[0]
 }
 
 function parseEnsName(text = ""): string | null {
-  const results = text.match(/[a-zA-Z0-9_]*\.eth/)
+  const results = text.match(/[a-zA-Z0-9_]+\.eth/)
   return results && results[0]
 }
