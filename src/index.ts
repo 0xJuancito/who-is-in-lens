@@ -130,9 +130,9 @@ function getProvidersConfig(): ProvidersConfig {
   }
 }
 
-async function getTwitterFollowing(username: string) {
+async function getTwitterFollowing(username: string, bearerToken?: string) {
   try {
-    const twitterToken = process.env.TWITTER_API_BEARER_TOKEN
+    const twitterToken = bearerToken || process.env.TWITTER_API_BEARER_TOKEN
     if (!twitterToken) {
       throw new Error("TWITTER_API_BEARER_TOKEN env variable must be defined")
     }
