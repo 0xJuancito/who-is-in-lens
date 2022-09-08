@@ -24,7 +24,7 @@ type Handle = {
 
 dotenv.config()
 
-export async function findFriends(username: string): Promise<Handle[]> {
+export async function findFriends(username: string, twitterToken?: string): Promise<Handle[]> {
   const initTime = Date.now()
 
   const providersConfig = getProvidersConfig()
@@ -34,7 +34,7 @@ export async function findFriends(username: string): Promise<Handle[]> {
   const polygonProvider = new ethers.providers.JsonRpcProvider(providersConfig.polygonProviderUrl)
 
   // Get Twitter following
-  const following = await getTwitterFollowing(username)
+  const following = await getTwitterFollowing(username, twitterToken)
   if (!following) {
     throw new Error(`There is no Twitter profile for the username: ${username}`)
   }
