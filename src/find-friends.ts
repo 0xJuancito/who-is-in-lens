@@ -11,10 +11,12 @@ async function main() {
   // Print the .lens profiles
   console.log("")
   console.log("Lens friends:")
-  profiles.forEach((profile) => console.log(`@${profile.twitter} => ${profile.lens}`))
+  profiles.forEach((profile) => console.log(`@${profile.twitter.handle} => ${profile.lens.handle}`))
 
   console.log("")
   console.log(`Found ${profiles.length} frens in Lens!! :)`)
+
+  process.exit(0)
 }
 
 main()

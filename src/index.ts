@@ -10,8 +10,16 @@ type ProvidersConfig = {
 }
 
 type Handle = {
-  twitter: string
-  lens: string
+  twitter: {
+    handle: string
+    name: string
+    description: string | null
+    avatar: string | null
+  }
+  lens: {
+    handle: string
+  }
+  ensName: string | null
 }
 
 dotenv.config()
@@ -48,7 +56,16 @@ export async function findFriends(username: string): Promise<Handle[]> {
       // Push lens profile to the list
       const lensName = lensNameFromTwitter || lensNameFromEns
       if (lensName) {
-        profiles.push({ twitter: follower.username, lens: lensName })
+        profiles.push({
+          twitter: {
+            handle: follower.username,
+            name: follower.name,
+            description: follower.description || null,
+            avatar: follower.profile_image_url || null,
+          },
+          lens: { handle: lensName },
+          ensName,
+        })
         console.log(`Found @${follower.username} => ${lensName}`)
       }
     } catch (err) {
@@ -133,7 +150,7 @@ async function getTwitterFollowing(username: string) {
     // API quota: 15 every 15 minutes
     const following = await readOnlyClient.v2.following(userId, {
       max_results: 1000,
-      "user.fields": ["description"],
+      "user.fields": ["description", "profile_image_url"],
     })
 
     return following
