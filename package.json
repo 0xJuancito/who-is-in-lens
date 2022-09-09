@@ -1,6 +1,6 @@
 {
   "name": "who-is-in-lens",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "​Find your friends from Twitter in Lens Protocol",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
