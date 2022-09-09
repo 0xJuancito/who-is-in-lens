@@ -24,6 +24,10 @@ type Handle = {
 
 dotenv.config()
 
+export class TooManyRequestsError extends Error {}
+export class NoTwitterProfileError extends Error {}
+export class NoFollowingError extends Error {}
+
 export async function findFriends(username: string, twitterToken?: string): Promise<Handle[]> {
   const initTime = Date.now()
 
@@ -36,7 +40,7 @@ export async function findFriends(username: string, twitterToken?: string): Prom
   // Get Twitter following
   const following = await getTwitterFollowing(username, twitterToken)
   if (!following) {
-    throw new Error(`There is no Twitter profile for the username: ${username}`)
+    throw new NoTwitterProfileError(`There is no Twitter profile for that handle`)
   }
 
   const profiles: Handle[] = []
@@ -78,6 +82,10 @@ export async function findFriends(username: string, twitterToken?: string): Prom
   const timeTaken = Date.now() - initTime
   const TIMEOUT = 9000 - timeTaken
   const timeoutPromise = new Promise<void>((resolve) => setTimeout(() => resolve(), TIMEOUT))
+
+  if (!following.data) {
+    throw new NoFollowingError("There are no Lens users for that profile")
+  }
 
   const promises = following.data.map((follower) => Promise.race([lensPromise(follower), timeoutPromise]))
   await Promise.all(promises)
@@ -154,8 +162,11 @@ async function getTwitterFollowing(username: string, bearerToken?: string) {
     })
 
     return following
-  } catch (err) {
-    return null
+  } catch (err: any) {
+    if (err?.code === 429) {
+      throw new TooManyRequestsError("Too many requests. Please try again in a few minutes ⌛️")
+    }
+    throw err
   }
 }
 
