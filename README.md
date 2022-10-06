@@ -2,7 +2,7 @@
 
 Find your friends from Twitter in [Lens Protocol](https://lens.xyz/) 🌿
 
-🕸 For the website repository you can visit [who-is-in-lens-web](https://github.com/juanscolari/who-is-in-lens-web)
+🕸 For the website repository you can visit [inlens](https://github.com/juanscolari/inlens)
 
 ## Description
 
