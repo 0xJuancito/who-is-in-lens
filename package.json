@@ -4,7 +4,9 @@
   "description": "​Find your friends from Twitter in Lens Protocol",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "scripts": {},
+  "scripts": {
+    "build": "npx tsc -p tsconfig.json"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/juanscolari/who-is-in-lens.git"
