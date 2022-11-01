@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import { BigNumber, ethers } from "ethers"
 
 const LENS_CONTRACT_ADDRESS = "0xdb46d1dc155634fbc732f92e853b10b288ad5a1d"
+const DEFAULT_TIMEOUT = 9000
 
 type ProvidersConfig = {
   ethProviderUrl: string
@@ -80,7 +81,8 @@ export async function findFriends(username: string, twitterToken?: string): Prom
   // Force promises to be resolved in a specific timeout
   // Try to resolve the promise in less than 10 seconds approximmately
   const timeTaken = Date.now() - initTime
-  const TIMEOUT = 9000 - timeTaken
+  const envTimeout = process.env.TIMEOUT ? parseInt(process.env.TIMEOUT) : DEFAULT_TIMEOUT
+  const TIMEOUT = envTimeout - timeTaken
   const timeoutPromise = new Promise<void>((resolve) => setTimeout(() => resolve(), TIMEOUT))
 
   if (!following.data) {
