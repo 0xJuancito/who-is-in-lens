@@ -9,19 +9,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/juanscolari/who-is-in-lens.git"
+    "url": "git+https://github.com/0xJuancito/who-is-in-lens.git"
   },
   "keywords": [],
   "author": "",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/juanscolari/who-is-in-lens/issues"
+    "url": "https://github.com/0xJuancito/who-is-in-lens/issues"
   },
   "prettier": {
     "printWidth": 120,
     "semi": false
   },
-  "homepage": "https://github.com/juanscolari/who-is-in-lens#readme",
+  "homepage": "https://github.com/0xJuancito/who-is-in-lens#readme",
   "devDependencies": {
     "@microsoft/api-extractor": "^7.17.0",
     "@types/jest": "^28.1.0",
